@@ -1,0 +1,12 @@
+title: "Shopify運用者のためのセクションカスタマイズ講座"
+summary: "Shopifyはノーコードでできる ･･･とはいえ､なんだかんだ多少手を入れる必要がでてきますよね？
+ここでは､Shopify運用担当者（HTML/CSS未経験または初級者）さんが､エンジニアに依頼せず自分で簡単なセクションの作成や更新ができるようになるためのノウハウをお伝えします｡
+"
+topics: ["Shopify"]
+published: false
+price: 0 # 有料の場合200〜5000
+# 本に含めるチャプターを順番に並べましょう
+chapters:
+  - about_book
+  - html_and_css_basics
+  - how_to_create_two_column_section
