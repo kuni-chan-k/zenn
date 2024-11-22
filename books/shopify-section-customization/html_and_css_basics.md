@@ -46,6 +46,16 @@ Shopifyテーマのレイアウトを作成するときに最も頻繁に使う�
 - `src`属性で画像のURLを指定します。
 - `alt`属性には画像の説明を記載します（アクセシビリティ向上のため）。
 
+Shopifyでは管理画面からファイルをアップロードし､それを使用することや
+
+![コンテンツ→ファイル](/images/shopify-section-customization/shopify-contents-file.png)
+
+テーマの「コードを編集」を開き､アセットフォルダに画像を追加し､それを使用することもあります｡
+
+![コードを編集→新しいアセットを追加する](/images/shopify-section-customization/shopify-assets-upload.png)
+
+詳しい使い分けにつていは別途お伝えいたします｡
+
 ---
 
 ## 2. Shopify特有の構造

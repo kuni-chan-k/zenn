@@ -3,7 +3,7 @@ summary: "Shopifyはノーコードでできる ･･･とはいえ､なん�
 ここでは､Shopify運用担当者（HTML/CSS未経験または初級者）さんが､エンジニアに依頼せず自分で簡単なセクションの作成や更新ができるようになるためのノウハウをお伝えします｡
 "
 topics: ["Shopify"]
-published: false
+published: true
 price: 0 # 有料の場合200〜5000
 # 本に含めるチャプターを順番に並べましょう
 chapters:
