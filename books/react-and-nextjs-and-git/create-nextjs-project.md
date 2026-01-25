@@ -40,12 +40,16 @@ npx create-next-app@latest my-first-app
 ```
 ✔ Would you like to use TypeScript? … Yes        ← TypeScript を使う！
 ✔ Would you like to use ESLint? … Yes
-✔ Would you like to use Tailwind CSS? … No
+✔ Would you like to use Tailwind CSS? … No       ← この本では使わないので No
 ✔ Would you like your code inside a `src/` directory? … No
-✔ Would you like to use App Router? (recommended) … Yes
-✔ Would you like to use Turbopack for `next dev`? … No
+✔ Would you like to use App Router? (recommended) … Yes  ← App Router を使う
+✔ Would you like to use Turbopack for `next dev`? … No または Yes（どちらでもOK）
 ✔ Would you like to customize the import alias (@/* by default)? … No
 ```
+
+:::message
+質問の内容や順序は、Next.js のバージョンによって異なる場合があります。基本的には「TypeScript を使う」「App Router を使う」を選択すれば問題ありません。
+:::
 
 :::message
 TypeScript を使うと、VSCode が間違いを教えてくれたり、補完が効いたりして、開発がとても楽になります。次の章で TypeScript の基礎を学びます。
