@@ -16,7 +16,7 @@ title: "プロジェクトのセットアップ"
 npx create-next-app@latest match-manager
 ```
 
-今回は以下のように答えてください（前の本とは違う設定があります）。
+今回は以下のように答えてください（Part 1の章とは違う設定があります）。
 
 ```
 ✔ Would you like to use TypeScript? … Yes        ← 今回はYes！
@@ -111,6 +111,88 @@ export default function RootLayout({
 }
 ```
 
+## Tailwind CSS とは
+
+Tailwind CSS は、**ユーティリティファースト**のCSSフレームワークです。HTMLの`className`に直接スタイルを書くことで、CSSファイルを書かずにスタイリングできます。
+
+### 従来のCSSとの違い
+
+**従来のCSS:**
+```css
+/* styles.css */
+.button {
+  background-color: blue;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+```
+
+```tsx
+<button className="button">クリック</button>
+```
+
+**Tailwind CSS:**
+```tsx
+<button className="bg-blue-500 text-white px-4 py-2 rounded">
+  クリック
+</button>
+```
+
+### Tailwind CSS の基本クラス
+
+| カテゴリ | 例 | 説明 |
+|---------|-----|------|
+| **色** | `bg-blue-500`, `text-white` | 背景色、文字色 |
+| **サイズ** | `w-full`, `h-10`, `p-4`, `m-2` | 幅、高さ、パディング、マージン |
+| **文字** | `text-xl`, `font-bold` | フォントサイズ、太さ |
+| **レイアウト** | `flex`, `grid`, `items-center` | フレックス、グリッド、配置 |
+| **状態** | `hover:bg-blue-600`, `disabled:opacity-50` | ホバー、無効化時のスタイル |
+
+### よく使うクラスの例
+
+```tsx
+// コンテナ
+<div className="p-8">                    {/* padding: 2rem */}
+  <h1 className="text-3xl font-bold">   {/* フォントサイズ: 1.875rem, 太字 */}
+    タイトル
+  </h1>
+  
+  <button className="
+    bg-blue-500          {/* 背景色: 青 */}
+    text-white            {/* 文字色: 白 */}
+    px-4 py-2            {/* パディング: 横1rem, 縦0.5rem */}
+    rounded               {/* 角丸: 0.25rem */}
+    hover:bg-blue-600     {/* ホバー時: 濃い青 */}
+  ">
+    ボタン
+  </button>
+</div>
+```
+
+### レスポンシブデザイン
+
+Tailwind CSS では、画面サイズに応じたスタイルを簡単に書けます。
+
+```tsx
+<div className="
+  text-sm          {/* デフォルト: 小さい文字 */}
+  md:text-base     {/* 中サイズ以上: 通常サイズ */}
+  lg:text-lg       {/* 大サイズ以上: 大きい文字 */}
+">
+  レスポンシブなテキスト
+</div>
+```
+
+- `sm:` - 640px以上
+- `md:` - 768px以上
+- `lg:` - 1024px以上
+- `xl:` - 1280px以上
+
+:::message
+Tailwind CSS のクラス名は、最初は覚えにくく感じますが、使っていくうちに自然に覚えられます。VSCodeの補完機能も使えるので、入力しながら覚えていきましょう。
+:::
+
 ## Tailwind CSS の確認
 
 Tailwind CSS が動いているか確認しましょう。
@@ -158,6 +240,7 @@ git commit -m "プロジェクトの初期セットアップ"
 ## この章のまとめ
 
 - Next.js + TypeScript + Tailwind CSS でプロジェクトを作成
+- Tailwind CSS の基本（ユーティリティクラス、レスポンシブ）を理解した
 - 不要なファイルを整理
 - ディレクトリ構成を設計
 
@@ -166,4 +249,5 @@ git commit -m "プロジェクトの初期セットアップ"
 - [ ] プロジェクトが作成できた
 - [ ] `npm run dev` でエラーなく起動する
 - [ ] Tailwind CSS のスタイルが適用されている
+- [ ] Tailwind CSS の基本的なクラス名を理解した
 - [ ] Git でコミットした

@@ -168,6 +168,62 @@ function Greeting() {
 
 props は、**親コンポーネントから子コンポーネントにデータを渡す仕組み**です。
 
+### 配列を表示する（map メソッド）
+
+配列のデータをリストとして表示するには、`map` メソッドを使います。
+
+```tsx
+const names = ["田中", "鈴木", "佐藤"];
+
+function NameList() {
+  return (
+    <ul>
+      {names.map((name) => (
+        <li key={name}>{name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+**`map` メソッドとは？**
+- 配列の各要素に対して処理を行い、新しい配列を作るメソッドです
+- `配列.map((要素) => 処理)` という書き方をします
+- React では、配列のデータをリスト表示するときに頻繁に使います
+
+**`key` プロパティについて**
+- `map` でリストを作る場合、各要素に `key` プロパティが必要です
+- `key` は、React が要素を識別するための一意の値です
+- 通常は、データのIDや、配列のインデックスを使います
+
+```tsx
+// オブジェクトの配列の場合
+type User = {
+  id: number;
+  name: string;
+};
+
+const users: User[] = [
+  { id: 1, name: "田中" },
+  { id: 2, name: "鈴木" },
+  { id: 3, name: "佐藤" },
+];
+
+function UserList() {
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+:::message
+`map` は JavaScript の配列メソッドです。React 特有の機能ではありませんが、React でリストを表示するときに必須の知識です。
+:::
+
 ### props の使い方（TypeScript）
 
 TypeScript では、props の型を定義します。
@@ -342,10 +398,70 @@ function App() {
 }
 ```
 
+## よくあるエラーと対処法
+
+### 1. `key` プロパティがない
+
+```tsx
+// ❌ エラー: Each child in a list should have a unique "key" prop
+{users.map((user) => (
+  <li>{user.name}</li>
+))}
+
+// ✅ 正しい: key を追加
+{users.map((user) => (
+  <li key={user.id}>{user.name}</li>
+))}
+```
+
+### 2. コンポーネント名が小文字で始まる
+
+```tsx
+// ❌ エラー: React が HTML タグだと認識してしまう
+function greeting() {
+  return <h1>Hello</h1>;
+}
+
+// ✅ 正しい: 大文字で始める
+function Greeting() {
+  return <h1>Hello</h1>;
+}
+```
+
+### 3. JSX で複数の要素を返している
+
+```tsx
+// ❌ エラー: Adjacent JSX elements must be wrapped in an enclosing tag
+return (
+  <h1>タイトル</h1>
+  <p>本文</p>
+);
+
+// ✅ 正しい: div やフラグメントで囲む
+return (
+  <>
+    <h1>タイトル</h1>
+    <p>本文</p>
+  </>
+);
+```
+
+### 4. `className` を `class` と書いている
+
+```tsx
+// ❌ エラー: Warning: Invalid DOM property `class`
+<div class="container">...</div>
+
+// ✅ 正しい: className を使う
+<div className="container">...</div>
+```
+
 ## この章のまとめ
 
 - JSX は JavaScript の中に HTML 風のコードを書ける
 - コンポーネントは大文字で始まる関数として作る
+- `map` メソッドで配列をリスト表示できる
+- `key` プロパティはリストの各要素に必須
 - props で親から子にデータを渡せる
 - TypeScript では props の型を定義する
 - children で囲んだ中身を受け取れる
@@ -354,6 +470,8 @@ function App() {
 
 - [ ] JSX の基本ルールを理解した
 - [ ] コンポーネントを作れる
+- [ ] `map` メソッドで配列をリスト表示できる
+- [ ] `key` プロパティの必要性を理解した
 - [ ] props でデータを渡せる
 - [ ] props に型を付けられる
 - [ ] children の使い方を理解した

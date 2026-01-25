@@ -463,6 +463,236 @@ export default function ContactForm() {
 }
 ```
 
+## 実践的なエラーハンドリングの例
+
+### データ不整合のエラー
+
+アプリでデータが不整合になった場合の処理例です。
+
+```tsx
+"use client";
+
+import { useState, useEffect } from 'react';
+
+type Competition = {
+  id: string;
+  name: string;
+  status: 'upcoming' | 'ongoing' | 'completed';
+};
+
+export default function CompetitionList() {
+  const [competitions, setCompetitions] = useState<Competition[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchCompetitions() {
+      try {
+        // localStorageからデータを取得
+        const data = localStorage.getItem('competitions');
+        
+        if (!data) {
+          setCompetitions([]);
+          return;
+        }
+
+        const parsed = JSON.parse(data);
+        
+        // データの検証
+        if (!Array.isArray(parsed)) {
+          throw new Error('データの形式が正しくありません');
+        }
+
+        // 各項目の検証
+        const validated = parsed.filter((comp: any) => {
+          return comp && 
+                 typeof comp.id === 'string' &&
+                 typeof comp.name === 'string' &&
+                 ['upcoming', 'ongoing', 'completed'].includes(comp.status);
+        });
+
+        if (validated.length !== parsed.length) {
+          console.warn('一部のデータが無効でした');
+        }
+
+        setCompetitions(validated);
+      } catch (err) {
+        if (err instanceof SyntaxError) {
+          setError('データの読み込みに失敗しました。データが壊れている可能性があります。');
+          // 壊れたデータを削除
+          localStorage.removeItem('competitions');
+        } else {
+          setError(err instanceof Error ? err.message : 'エラーが発生しました');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCompetitions();
+  }, []);
+
+  if (loading) {
+    return <p>読み込み中...</p>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        <p style={{ color: 'red' }}>エラー: {error}</p>
+        <button onClick={() => window.location.reload()}>
+          ページを再読み込み
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <ul>
+      {competitions.map(comp => (
+        <li key={comp.id}>{comp.name} ({comp.status})</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### ネットワークエラーの処理
+
+ネットワークが不安定な場合の処理例です。
+
+```tsx
+"use client";
+
+import { useState } from 'react';
+
+export default function DataForm() {
+  const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name }),
+      });
+
+      // ネットワークエラーのチェック
+      if (!response.ok) {
+        if (response.status === 0) {
+          throw new Error('ネットワークエラー: サーバーに接続できません');
+        }
+        throw new Error(`エラー: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('成功:', data);
+      setName('');
+    } catch (err) {
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        setError('ネットワークエラー: インターネット接続を確認してください');
+      } else {
+        setError(err instanceof Error ? err.message : 'エラーが発生しました');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        disabled={loading}
+      />
+      {error && (
+        <p style={{ color: 'red' }}>{error}</p>
+      )}
+      <button type="submit" disabled={loading}>
+        {loading ? '送信中...' : '送信'}
+      </button>
+    </form>
+  );
+}
+```
+
+### タイムアウトの処理
+
+リクエストが長時間かかる場合のタイムアウト処理です。
+
+```tsx
+"use client";
+
+import { useState, useEffect } from 'react';
+
+export default function SlowDataLoader() {
+  const [data, setData] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒でタイムアウト
+
+    async function fetchData() {
+      try {
+        const response = await fetch('/api/slow-data', {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error('データの取得に失敗しました');
+        }
+
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        if (err instanceof Error && err.name === 'AbortError') {
+          setError('タイムアウト: リクエストが時間内に完了しませんでした');
+        } else {
+          setError(err instanceof Error ? err.message : 'エラーが発生しました');
+        }
+      } finally {
+        clearTimeout(timeoutId);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      controller.abort();
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
+  if (loading) {
+    return <p>読み込み中...（最大10秒）</p>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        <p style={{ color: 'red' }}>エラー: {error}</p>
+        <button onClick={() => window.location.reload()}>
+          再試行
+        </button>
+      </div>
+    );
+  }
+
+  return <div>{data}</div>;
+}
+```
+
 ## よくあるパターン
 
 ### パターン1: エラーコンポーネント
@@ -554,6 +784,7 @@ export default function LoadingSpinner() {
 - エラーとローディングを組み合わせて、適切なUIを表示する
 - 再試行機能を実装して、ユーザビリティを向上させる
 - エラー表示やローディング表示をコンポーネント化して再利用する
+- データ不整合、ネットワークエラー、タイムアウトなど、実践的なエラーケースに対応できる
 
 ## 確認してみよう
 
@@ -562,6 +793,8 @@ export default function LoadingSpinner() {
 - [ ] ローディング状態を管理できる
 - [ ] エラーとローディングを組み合わせたUIが作れる
 - [ ] 再試行機能が実装できる
+- [ ] データ不整合のエラーに対応できる
+- [ ] ネットワークエラーやタイムアウトを処理できる
 
 :::message
 エラーハンドリングとローディング状態の管理は、ユーザー体験に大きく影響します。適切に実装することで、使いやすいアプリになります。

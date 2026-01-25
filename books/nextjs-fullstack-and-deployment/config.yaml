@@ -1,0 +1,28 @@
+title: "Next.jsでバックエンド連携＆サービス公開"
+summary: |
+  フロントエンドで完成したアプリにバックエンドを追加し、
+  本格的なWebサービスとして公開します。API・データベース・認証の概念から、
+  Prisma + PostgreSQL、JWT認証、Vercelデプロイまで学べます。
+topics: ["nextjs", "Prisma", "PostgreSQL", "JWT", "Vercel"]
+published: false
+price: 0
+chapters:
+  # はじめに
+  - introduction
+  # Part 1: バックエンドの基礎概念
+  - what-is-backend
+  - http-basics
+  - api-routes-intro
+  - database-concepts
+  - authentication-concepts
+  # Part 2: バックエンド実装
+  - database-setup
+  - auth-implementation
+  - data-migration
+  - advanced-features
+  # Part 3: サービス公開
+  - vercel-basics
+  - environment-variables
+  - production-database
+  - deployment-checklist
+  - next-steps

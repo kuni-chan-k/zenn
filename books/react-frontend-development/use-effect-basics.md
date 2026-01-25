@@ -341,6 +341,85 @@ function Component() {
 }
 ```
 
+## よくあるエラーと対処法
+
+### 1. 無限ループが発生する
+
+```tsx
+// ❌ 問題: 依存配列に state を入れると無限ループになる
+const [count, setCount] = useState(0);
+
+useEffect(() => {
+  setCount(count + 1);  // count が変わる → useEffect が実行 → count が変わる → ...
+}, [count]);  // count を依存配列に入れている
+
+// ✅ 正しい: 依存配列を空にする、または関数形式を使う
+useEffect(() => {
+  setCount((prev) => prev + 1);
+}, []);  // 1回だけ実行
+```
+
+### 2. 依存配列の警告が出る
+
+```tsx
+// ⚠️ 警告: React Hook useEffect has a missing dependency
+const [userId, setUserId] = useState(1);
+
+useEffect(() => {
+  fetch(`/api/users/${userId}`);
+}, []);  // userId を使っているのに依存配列にない
+
+// ✅ 正しい: 使っている変数は依存配列に入れる
+useEffect(() => {
+  fetch(`/api/users/${userId}`);
+}, [userId]);  // userId を依存配列に追加
+```
+
+### 3. if 文の中で useEffect を呼んでいる
+
+```tsx
+// ❌ エラー: React Hook "useEffect" is called conditionally
+function Component({ shouldFetch }: { shouldFetch: boolean }) {
+  if (shouldFetch) {
+    useEffect(() => {
+      // if文の中はNG
+    }, []);
+  }
+}
+
+// ✅ 正しい: トップレベルで呼び、条件は中に入れる
+function Component({ shouldFetch }: { shouldFetch: boolean }) {
+  useEffect(() => {
+    if (shouldFetch) {
+      // 条件は中に入れる
+    }
+  }, [shouldFetch]);
+}
+```
+
+### 4. クリーンアップを忘れている
+
+```tsx
+// ❌ 問題: タイマーが削除されずにメモリリークの原因になる
+useEffect(() => {
+  const timer = setInterval(() => {
+    console.log('tick');
+  }, 1000);
+  // クリーンアップがない
+}, []);
+
+// ✅ 正しい: クリーンアップ関数で削除する
+useEffect(() => {
+  const timer = setInterval(() => {
+    console.log('tick');
+  }, 1000);
+  
+  return () => {
+    clearInterval(timer);  // クリーンアップ
+  };
+}, []);
+```
+
 ## この章のまとめ
 
 - `useEffect` は副作用処理（データ取得、タイマーなど）を行うためのフック
@@ -348,6 +427,7 @@ function Component() {
 - 依存配列に値を指定すると、その値が変わったときに実行
 - タイマーやイベントリスナーは、クリーンアップ関数で削除する
 - コンポーネントのトップレベルでのみ呼び出す
+- 依存配列には、useEffect 内で使う変数を必ず含める
 
 ## 確認してみよう
 

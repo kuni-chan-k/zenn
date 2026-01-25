@@ -375,6 +375,56 @@ React 専用の開発者ツールです。コンポーネントの state や pro
 デバッグは最初は難しく感じますが、慣れると問題を素早く見つけられるようになります。エラーは怖がらず、一つずつ解決していきましょう。
 :::
 
+## よくあるエラーと対処法
+
+### 1. state を直接変更している
+
+```tsx
+// ❌ エラー: state を直接変更してはいけない
+const [items, setItems] = useState([1, 2, 3]);
+items.push(4);  // これは動かない
+
+// ✅ 正しい: setState で新しい配列を作る
+const [items, setItems] = useState([1, 2, 3]);
+setItems([...items, 4]);  // スプレッド構文で新しい配列を作る
+```
+
+### 2. state の更新が反映されない
+
+```tsx
+// ❌ 問題: 同じ値を設定しても更新されない
+const [count, setCount] = useState(0);
+setCount(0);  // 0 から 0 への変更は無視される
+
+// ✅ 正しい: 前の値を使って更新する
+const [count, setCount] = useState(0);
+setCount((prev) => prev + 1);  // 関数形式で確実に更新
+```
+
+### 3. イベントハンドラーの書き方が間違っている
+
+```tsx
+// ❌ エラー: 関数を呼び出してしまっている
+<button onClick={handleClick()}>クリック</button>
+
+// ✅ 正しい: 関数を渡す（呼び出さない）
+<button onClick={handleClick}>クリック</button>
+// または
+<button onClick={() => handleClick()}>クリック</button>
+```
+
+### 4. 型エラー（TypeScript）
+
+```tsx
+// ❌ エラー: Type 'string' is not assignable to type 'number'
+const [count, setCount] = useState<number>(0);
+setCount("1");  // 文字列を渡してしまっている
+
+// ✅ 正しい: 正しい型の値を渡す
+const [count, setCount] = useState<number>(0);
+setCount(1);  // 数値を渡す
+```
+
 ## 確認してみよう
 
 - [ ] state と普通の変数の違いを説明できる

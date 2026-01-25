@@ -137,6 +137,37 @@ my-first-app/
 └── ...（その他の設定ファイル）
 ```
 
+### package.json とは
+
+`package.json` は、プロジェクトの設定ファイルです。主に以下の情報が書かれています：
+
+- **プロジェクト名とバージョン**
+- **使用しているライブラリの一覧**（`dependencies`）
+- **開発時に使うツール**（`devDependencies`）
+- **実行できるコマンド**（`scripts`）
+
+```json
+{
+  "name": "my-first-app",
+  "version": "0.1.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "next": "15.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  }
+}
+```
+
+**npm とは？**
+- Node.js と一緒にインストールされるパッケージマネージャーです
+- `npm install` でライブラリをインストールできます
+- `npm run dev` で開発サーバーを起動できます
+
+`create-next-app` を実行すると、必要なライブラリが自動的にインストールされます。
+
 ### .tsx と .ts の違い
 
 TypeScript のファイルには2種類の拡張子があります。

@@ -10,7 +10,7 @@ title: "データ層の移行"
 
 ## 移行の方針
 
-Part 1 で作成した localStorage 版を、Prisma を使ったサーバーサイドに移行します。
+「Reactで作る！フロントエンド完結アプリ開発」のPart 3で作成したlocalStorage版を、Prisma を使ったサーバーサイドに移行します。
 
 **変更点:**
 

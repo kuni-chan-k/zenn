@@ -1,0 +1,37 @@
+title: "Reactで作る！フロントエンド完結アプリ開発"
+summary: |
+  HTML/CSSの次のステップとして、React/Next.jsでフロントエンドだけで動く
+  完全なアプリを作ります。環境構築からCRUD操作、順位表の計算まで、
+  実践的なアプリ開発を手を動かしながら学べます。
+topics: ["React", "nextjs", "typescript", "tailwindcss"]
+published: false
+price: 0
+chapters:
+  # はじめに
+  - introduction
+  # Part 1: 開発環境とReactの基礎
+  - setup-environment
+  - git-basics
+  - what-is-react
+  - jsx-and-components
+  - state-and-hooks
+  - typescript-basics
+  - create-nextjs-project
+  - first-page
+  # Part 2: React Hooksと実践パターン
+  - use-effect-basics
+  - conditional-rendering
+  - form-handling
+  - data-fetching
+  - error-handling
+  - custom-hooks
+  # Part 3: スポーツ大会管理アプリ開発
+  - app-project-setup
+  - layout-and-navigation
+  - ui-components
+  - typescript-and-models
+  - competition-crud
+  - team-management
+  - match-management
+  - standings-calculation
+  - finishing-touches
