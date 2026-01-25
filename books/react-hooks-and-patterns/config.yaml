@@ -1,0 +1,20 @@
+title: "React Hooksと実践パターン"
+summary: |
+  React/Next.jsの基礎を学んだ次のステップとして、実践的な開発に必要な知識を学びます。
+  useEffect、条件付きレンダリング、フォーム処理、データフェッチングなど、
+  実際のWebサービス開発で必須となるパターンを、手を動かしながら習得できます。
+topics: ["React", "nextjs", "TypeScript", "Hooks"]
+published: false
+price: 0
+chapters:
+  # Part 1: React Hooksの基礎
+  - introduction
+  - useEffect-basics
+  - conditional-rendering
+  - form-handling
+  # Part 2: データフェッチングとエラーハンドリング
+  - data-fetching
+  - error-handling
+  # Part 3: 実践的なパターン
+  - custom-hooks
+  - practical-patterns
