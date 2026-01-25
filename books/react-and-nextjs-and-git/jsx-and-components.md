@@ -129,6 +129,41 @@ function greeting() { ... }
 function Greeting() { ... }
 ```
 
+### なぜ大文字で始めるのか？
+
+React は、**大文字で始まる名前をコンポーネント、小文字で始まる名前を HTML タグ**として区別します。
+
+```tsx
+// 小文字で始まる → HTML タグとして扱われる
+<div>Hello</div>        // HTML の div タグ
+<span>World</span>      // HTML の span タグ
+
+// 大文字で始まる → コンポーネントとして扱われる
+<Greeting />            // Greeting コンポーネント
+<ArticleCard />         // ArticleCard コンポーネント
+```
+
+小文字で始まるコンポーネントを作ると、React が HTML タグだと勘違いして、エラーになります。
+
+```tsx
+// ❌ これは動かない
+function greeting() {
+  return <h1>Hello</h1>;
+}
+
+// 使おうとすると...
+<greeting />  // React は「greeting という HTML タグは存在しない」とエラーにする
+
+// ✅ 正しい書き方
+function Greeting() {
+  return <h1>Hello</h1>;
+}
+
+<Greeting />  // これで正しく動作する
+```
+
+このルールにより、React はコンポーネントと HTML タグを区別できます。
+
 ## props（プロップス）
 
 props は、**親コンポーネントから子コンポーネントにデータを渡す仕組み**です。
