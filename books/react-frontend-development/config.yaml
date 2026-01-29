@@ -1,10 +1,11 @@
-title: "Reactで作る！フロントエンド完結アプリ開発"
+title: "【初心者向け】Reactで作る！フロントエンド完結アプリ開発"
+cover: cover.png
 summary: |
   HTML/CSSの次のステップとして、React/Next.jsでフロントエンドだけで動く
   完全なアプリを作ります。環境構築からCRUD操作、順位表の計算まで、
   実践的なアプリ開発を手を動かしながら学べます。
 topics: ["React", "nextjs", "typescript", "tailwindcss"]
-published: false
+published: true
 price: 0
 chapters:
   # はじめに
