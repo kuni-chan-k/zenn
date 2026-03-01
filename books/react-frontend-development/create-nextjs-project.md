@@ -80,7 +80,7 @@ npx create-next-app@latest my-first-app
 :::
 
 :::message
-TypeScript を使うと、VSCode が間違いを教えてくれたり、補完が効いたりして、開発がとても楽になります。次の章で TypeScript の基礎を学びます。
+TypeScript を使うと、VSCode が間違いを教えてくれたり、補完が効いたりして、開発がとても楽になります。TypeScript の基礎はこの後の章で学びます。
 :::
 
 しばらく待つと、プロジェクトが作成されます。
@@ -218,7 +218,7 @@ export default function RootLayout({
 
 `{ children }: { children: React.ReactNode }` は TypeScript の書き方です。「children は React のノード（コンポーネントやテキスト）である」という意味です。
 
-次の章で TypeScript の詳細を学びます。
+TypeScript の詳細はこの後の章で学びます。
 
 ## globals.css について
 

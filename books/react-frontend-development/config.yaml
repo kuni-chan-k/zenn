@@ -15,9 +15,9 @@ chapters:
   - git-basics
   - what-is-react
   - jsx-and-components
+  - create-nextjs-project
   - state-and-hooks
   - typescript-basics
-  - create-nextjs-project
   - first-page
   # Part 2: React Hooksと実践パターン
   - use-effect-basics
