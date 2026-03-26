@@ -257,17 +257,11 @@ export function CompetitionActions({ competitionId }: { competitionId: string })
 }
 ```
 
-## match-flow の参考コード
+## サンプルコードの参考
 
-実際の実装は match-flow リポジトリを参考にしてください：
+実際の実装はサンプルリポジトリを参考にしてください：
 
-```
-/Users/kunimitsu/workspace/サービス開発/match-flow/
-├── app/api/           # API Routes
-├── components/        # コンポーネント
-├── lib/              # ユーティリティ
-└── types/            # 型定義
-```
+https://github.com/kuni-chan-k/match-manager-fullstack
 
 特に以下のファイルが参考になります：
 

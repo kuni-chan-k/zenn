@@ -4,7 +4,7 @@ summary: |
   本格的なWebサービスとして公開します。API・データベース・認証の概念から、
   Prisma + PostgreSQL、JWT認証、Vercelデプロイまで学べます。
 topics: ["nextjs", "Prisma", "PostgreSQL", "JWT", "Vercel"]
-published: false
+published: true
 price: 0
 chapters:
   # はじめに
